@@ -1,20 +1,32 @@
 package world;
 
+import java.util.Random;
+
 public class TileMap {
 
 	private int width;
 	private int height;
 	Tile[][] tiles;
+	Random random;
 	
 	public TileMap (int width, int height) {
 		this.width = width;
 		this.height = height;
 		
+		random = new Random();
+		
 		tiles = new Tile[width][height];
 		
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				tiles[x][y] = new Tile(TERRAIN.DARK_GRASS);
+				if (random.nextInt(10) + 1 < 8) {
+					tiles[x][y] = new Tile(1);
+				}
+				else {
+					tiles[x][y] = new Tile(0);
+				}
+				
+				
 			}
 		}
 	}

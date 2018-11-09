@@ -2,6 +2,7 @@ package world;
 
 public enum TERRAIN {
 	
-	DARK_GRASS;
+	DARK_GRASS,
+	FUZZY_GRASS;
 	
 }

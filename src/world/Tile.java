@@ -4,22 +4,21 @@ import controller.Player;
 
 public class Tile {
 	
-	TERRAIN terrain;
-	
-	private Player player;
 	
 	
-	public Tile (TERRAIN terrain) {
-		this.terrain = terrain;
+	Player player;
+	int type;
+	
+	
+	public Tile (int t) {
+		type = t;
 	}
 
 
-
-	public TERRAIN getTerrain() {
-		
-		return terrain;
+	public int getTileType() {
+		return type;
 	}
-
+ 	
 
 
 	public Player getPlayer() {
