@@ -18,7 +18,6 @@ public class Player {
 	
 	public boolean move (int dx, int dy) {
 		
-		
 		if (x+dx >= map.getWidth() || x+dx < 0 || y+dy >= map.getHeight() || y+dy < 0) {
 			return false;
 		}
