@@ -58,6 +58,7 @@ public class Player {
 	}
 	
 	public boolean move (int dx, int dy) {
+
 		if (playerState != PLAYER_STATE.STANDING) {
 			return false;
 		}
