@@ -38,7 +38,7 @@ public class MainGameScreen extends AbstractScreen {
 		spriteBatch = new SpriteBatch();
 		gameTileMap = new TileMap(Settings.WIDTH_TILES, Settings.HEIGHT_TILES);
 		
-		player = new Player (gameTileMap, 9, 6);
+		player = new Player (gameTileMap, 0, 0);
 		playerController = new PlayerController(player);
 		
 		camera = new Camera();
@@ -64,7 +64,8 @@ public class MainGameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
-		camera.update(player.getX() + 0.5f, player.getY() + 0.5f);
+		player.update(delta);
+		camera.update(player.getWorldX() + 0.5f, player.getWorldY() + 0.5f);
 		
 		spriteBatch.begin();
 		
@@ -85,7 +86,7 @@ public class MainGameScreen extends AbstractScreen {
 		}
 		
 		
-		spriteBatch.draw(standSouth, worldX + player.getX() * Settings.SCALE_TILE, worldY + player.getY() * Settings.SCALE_TILE, 50, 60);
+		spriteBatch.draw(standSouth, worldX + player.getWorldX() * Settings.SCALE_TILE, worldY + player.getWorldY() * Settings.SCALE_TILE, 50, 60);
 		
 		
 		spriteBatch.end();
