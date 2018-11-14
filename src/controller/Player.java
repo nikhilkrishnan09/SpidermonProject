@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Interpolation;
 import world.TileMap;
 
 public class Player {
-	
+	//Create Tile Map to create the world
 	private TileMap map;
 	
 	int x;
@@ -22,7 +22,7 @@ public class Player {
 	int finY;
 	
 	float animationTimer;
-	float ANIM_TIME = 0.5f;
+	float ANIM_TIME = 0.25f;
 	
 	private PLAYER_STATE playerState;
 	
@@ -47,6 +47,7 @@ public class Player {
 	public void update(float delta) {
 		if (playerState == PLAYER_STATE.WALKING) {
 			
+			//Interpolation for smooth motion tweening
 			animationTimer += delta;
 			worldX = Interpolation.sine.apply(initX, finX, animationTimer/ANIM_TIME);
 			worldY = Interpolation.sine.apply(initY, finY, animationTimer/ANIM_TIME);
@@ -58,7 +59,7 @@ public class Player {
 	}
 	
 	public boolean move (int dx, int dy) {
-
+		//Cannot start a new move if the old one is still in process
 		if (playerState != PLAYER_STATE.STANDING) {
 			return false;
 		}
@@ -106,6 +107,7 @@ public class Player {
 	}
 	
 	public void finishMove() {
+		//Returns player state to standing
 		playerState = PLAYER_STATE.STANDING;
 	}
 

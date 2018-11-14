@@ -6,6 +6,8 @@ public class TileMap {
 
 	private int width;
 	private int height;
+	
+	//2D array for creating a tile map
 	Tile[][] tiles;
 	Random random;
 	
@@ -13,6 +15,7 @@ public class TileMap {
 		this.width = width;
 		this.height = height;
 		
+		//Randomly determines which type of grass will appear
 		random = new Random();
 		
 		tiles = new Tile[width][height];

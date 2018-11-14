@@ -14,18 +14,19 @@ import world.Camera;
 import world.TileMap;
 
 public class MainGameScreen extends AbstractScreen {
-	
+	//Initializes spriteBatch to render textures, and textures that are rendered
 	SpriteBatch spriteBatch;
 	Texture standSouth;
 	Texture darkGrass;
 	Texture fuzzyGrass;
 	
+	//Objects to model and control the player
 	Player player;
 	PlayerController playerController;
 	
 	Camera camera;
 	
-	
+	//Time map to create world and terrain
 	TileMap gameTileMap;
 
 	public MainGameScreen(Spidermon app) {
@@ -38,7 +39,7 @@ public class MainGameScreen extends AbstractScreen {
 		spriteBatch = new SpriteBatch();
 		gameTileMap = new TileMap(Settings.WIDTH_TILES, Settings.HEIGHT_TILES);
 		
-		player = new Player (gameTileMap, 0, 0);
+		player = new Player (gameTileMap, 9, 6);
 		playerController = new PlayerController(player);
 		
 		camera = new Camera();
@@ -69,9 +70,11 @@ public class MainGameScreen extends AbstractScreen {
 		
 		spriteBatch.begin();
 		
+		//world coordinates for camera
 		float worldX = Gdx.graphics.getWidth()/2 - camera.getCameraX() * Settings.SCALE_TILE;
 		float worldY = Gdx.graphics.getHeight()/2 - camera.getCameraY() * Settings.SCALE_TILE;
 		
+		//renders the appropriate type of grass
 		for (int x = 0; x < gameTileMap.getWidth(); x++) {
 			for (int y = 0; y < gameTileMap.getHeight(); y++) {
 				if (gameTileMap.getTile(x, y).getTileType() == 1) {
@@ -85,7 +88,7 @@ public class MainGameScreen extends AbstractScreen {
 			}
 		}
 		
-		
+		//Draws the player
 		spriteBatch.draw(standSouth, worldX + player.getWorldX() * Settings.SCALE_TILE, worldY + player.getWorldY() * Settings.SCALE_TILE, 50, 60);
 		
 		

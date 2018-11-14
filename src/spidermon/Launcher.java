@@ -8,7 +8,7 @@ public class Launcher {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		
-		//meaningful comment
+		//creates configuration for the screen
 		config.height = 600;
 		config.width = 900;
 		config.vSyncEnabled = true;

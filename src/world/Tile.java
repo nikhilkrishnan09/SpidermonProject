@@ -4,8 +4,7 @@ import controller.Player;
 
 public class Tile {
 	
-	
-	
+	//Tile object constructor
 	Player player;
 	int type;
 	

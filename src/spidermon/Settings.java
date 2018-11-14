@@ -1,6 +1,7 @@
 package spidermon;
 
 public class Settings {
+	//Settings - all hardcoded dimensions here
 	public static int TILE = 25;
 
 	public static int SCALE = 2;

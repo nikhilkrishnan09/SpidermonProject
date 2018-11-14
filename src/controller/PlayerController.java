@@ -16,7 +16,7 @@ public class PlayerController extends InputAdapter {
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		
+		//Checks for keyboard input, changes the coordinates of the player accordingly
 		if (keycode == Keys.UP) {
 			player.move(0, 1);
 			
@@ -32,8 +32,7 @@ public class PlayerController extends InputAdapter {
 		else if (keycode == Keys.RIGHT) {
 			player.move(1, 0);
 		}
-		
-		
+			
 		return false;
 	}
 	

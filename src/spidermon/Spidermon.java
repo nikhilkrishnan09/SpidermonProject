@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import spidermon.mainscreen.MainGameScreen;
 
 public class Spidermon extends Game{
-	
+	//Creates the game screen
 	private MainGameScreen screen;
 
 	@Override

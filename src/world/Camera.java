@@ -6,7 +6,7 @@ public class Camera {
 	float cameraY = 0f;
 	
 
-	
+	//Creates camera
 	public void update(float updatedX, float updatedY) {
 		this.cameraX = updatedX;
 		this.cameraY = updatedY;
