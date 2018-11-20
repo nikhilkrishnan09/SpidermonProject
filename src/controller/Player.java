@@ -22,7 +22,7 @@ public class Player {
 	int finY;
 	
 	float animationTimer;
-	float ANIM_TIME = 0.25f;
+	float ANIM_TIME = 0.5f;
 	
 	private PLAYER_STATE playerState;
 	
@@ -109,6 +109,12 @@ public class Player {
 	public void finishMove() {
 		//Returns player state to standing
 		playerState = PLAYER_STATE.STANDING;
+		this.worldX = finX;
+		this.worldY = finY;
+		this.initX = 0;
+		this.initY = 0;
+		this.finX = 0;
+		this.finY = 0;
 	}
 
 	public int getX () {

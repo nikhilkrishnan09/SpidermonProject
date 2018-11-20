@@ -28,7 +28,7 @@ public class MainGameScreen extends AbstractScreen {
 	
 	//Time map to create world and terrain
 	TileMap gameTileMap;
-
+	
 	public MainGameScreen(Spidermon app) {
 		super(app);
 		
