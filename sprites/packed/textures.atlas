@@ -1,0 +1,118 @@
+
+textures.png
+size: 128,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+East_Stand
+  rotate: false
+  xy: 2, 66
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: -1
+East_Walking
+  rotate: false
+  xy: 2, 66
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 2
+East_Walking
+  rotate: false
+  xy: 2, 34
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 1
+East_Walking
+  rotate: false
+  xy: 29, 66
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 3
+North_Stand
+  rotate: false
+  xy: 2, 2
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: -1
+North_Walking
+  rotate: false
+  xy: 2, 2
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 2
+North_Walking
+  rotate: false
+  xy: 29, 34
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 1
+North_Walking
+  rotate: false
+  xy: 56, 66
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 3
+South_Stand
+  rotate: false
+  xy: 29, 2
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: -1
+South_Walking
+  rotate: false
+  xy: 29, 2
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 2
+South_Walking
+  rotate: false
+  xy: 56, 34
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 1
+South_Walking
+  rotate: false
+  xy: 83, 66
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 3
+West_Stand
+  rotate: false
+  xy: 56, 2
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: -1
+West_Walking
+  rotate: false
+  xy: 56, 2
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 2
+West_Walking
+  rotate: false
+  xy: 83, 34
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 1
+West_Walking
+  rotate: false
+  xy: 83, 2
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: 3

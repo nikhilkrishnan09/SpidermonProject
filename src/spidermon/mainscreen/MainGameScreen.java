@@ -4,12 +4,16 @@ package spidermon.mainscreen;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import controller.Player;
 import controller.PlayerController;
 import spidermon.Settings;
 import spidermon.Spidermon;
+import spidermon.util.AnimationSet;
 import world.Camera;
 import world.TileMap;
 
@@ -32,14 +36,35 @@ public class MainGameScreen extends AbstractScreen {
 	public MainGameScreen(Spidermon app) {
 		super(app);
 		
-		standSouth = new Texture("sprites/South_Stand.png");
+		//standSouth = new Texture("sprites/South_Stand.png");
 		darkGrass = new Texture("sprites/grass1.png");
 		fuzzyGrass = new Texture("sprites/grass2.png");
 		
 		spriteBatch = new SpriteBatch();
 		gameTileMap = new TileMap(Settings.WIDTH_TILES, Settings.HEIGHT_TILES);
 		
-		player = new Player (gameTileMap, 9, 6);
+		TextureAtlas atlas = app.getAssetManager().get("sprites/packed/textures.atlas", TextureAtlas.class);
+		
+		AnimationSet animationsWalking = new AnimationSet(
+				new Animation(0.5f/2f, atlas.findRegions("North_Walking"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.5f/2f, atlas.findRegions("South_Walking"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.5f/2f, atlas.findRegions("East_Walking"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.5f/2f, atlas.findRegions("West_Walking"), PlayMode.LOOP_PINGPONG),
+				atlas.findRegion("North_Stand"),
+				atlas.findRegion("South_Stand"),
+				atlas.findRegion("East_Stand"),
+				atlas.findRegion("West_Stand")
+				);
+		
+		//optional - for running
+		AnimationSet animationsRunning = new AnimationSet(
+				new Animation(0.2f/2f, atlas.findRegions("North_Walking"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.2f/2f, atlas.findRegions("South_Walking"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.2f/2f, atlas.findRegions("East_Walking"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.2f/2f, atlas.findRegions("West_Walking"), PlayMode.LOOP_PINGPONG)
+				);
+		
+		player = new Player (gameTileMap, 9, 6, animationsWalking, animationsRunning);
 		playerController = new PlayerController(player);
 		
 		camera = new Camera();
@@ -65,6 +90,8 @@ public class MainGameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
+		playerController.update(delta);
+		
 		player.update(delta);
 		camera.update(player.getWorldX() + 0.5f, player.getWorldY() + 0.5f);
 		
@@ -78,22 +105,18 @@ public class MainGameScreen extends AbstractScreen {
 		for (int x = 0; x < gameTileMap.getWidth(); x++) {
 			for (int y = 0; y < gameTileMap.getHeight(); y++) {
 				if (gameTileMap.getTile(x, y).getTileType() == 1) {
-					spriteBatch.draw(darkGrass, worldX + x * Settings.SCALE_TILE, worldY + y * Settings.SCALE_TILE, 50, 50);
+					spriteBatch.draw(darkGrass, worldX + x * Settings.SCALE_TILE, worldY + y * Settings.SCALE_TILE, Settings.SCALE_TILE, Settings.SCALE_TILE);
 				}
 				else {
-					spriteBatch.draw(fuzzyGrass, worldX + x * Settings.SCALE_TILE, worldY + y * Settings.SCALE_TILE, 50, 50);
+					spriteBatch.draw(fuzzyGrass, worldX + x * Settings.SCALE_TILE, worldY + y * Settings.SCALE_TILE, Settings.SCALE_TILE, Settings.SCALE_TILE);
 				}
-					
-				
 			}
 		}
 		
 		//Draws the player
-		spriteBatch.draw(standSouth, worldX + player.getWorldX() * Settings.SCALE_TILE, worldY + player.getWorldY() * Settings.SCALE_TILE, 50, 60);
-		
+		spriteBatch.draw(player.getSprite(), worldX + player.getWorldX() * Settings.SCALE_TILE, worldY + player.getWorldY() * Settings.SCALE_TILE, 25 * Settings.SCALE, 30 * Settings.SCALE);
 		
 		spriteBatch.end();
-		
 	}
 
 	public void resize(int width, int height) {

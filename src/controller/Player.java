@@ -1,7 +1,12 @@
 package controller;
 
+
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 
+import spidermon.util.AnimationSet;
+import world.DIRECTION;
 import world.TileMap;
 
 public class Player {
@@ -10,6 +15,7 @@ public class Player {
 	
 	int x;
 	int y;
+	DIRECTION facing;
 	
 	//variables for motion tweening
 	private float worldX;
@@ -20,13 +26,23 @@ public class Player {
 	
 	int finX;
 	int finY;
-	
+
 	float animationTimer;
-	float ANIM_TIME = 0.5f;
+	float anim_time = 0.5f;
+	
+	//optional - for running
+	boolean running = false;
+	
+	private float walkTimer;
+	boolean moveRequestThisFrame;
 	
 	private PLAYER_STATE playerState;
 	
-	public Player (TileMap tileMap, int x, int y) {
+	private AnimationSet animationsWalking;
+	private AnimationSet animationsRunning;
+
+	
+	public Player (TileMap tileMap, int x, int y, AnimationSet animationsWalking, AnimationSet animationsRunning) {
 		this.map = tileMap;
 		this.x = x;
 		this.y = y;
@@ -34,9 +50,14 @@ public class Player {
 		this.worldX = x;
 		this.worldY = y;
 		
+		this.animationsWalking = animationsWalking;
+		this.animationsRunning = animationsRunning;
+		
 		map.getTile(x, y).setPlayer(this);
 		
 		this.playerState = PLAYER_STATE.STANDING;
+		
+		this.facing = DIRECTION.SOUTH;
 	}
 	
 	public enum PLAYER_STATE {
@@ -49,35 +70,50 @@ public class Player {
 			
 			//Interpolation for smooth motion tweening
 			animationTimer += delta;
-			worldX = Interpolation.sine.apply(initX, finX, animationTimer/ANIM_TIME);
-			worldY = Interpolation.sine.apply(initY, finY, animationTimer/ANIM_TIME);
+			walkTimer += delta;
 			
-			if (animationTimer > ANIM_TIME) {
+			worldX = Interpolation.linear.apply(initX, finX, animationTimer/anim_time);
+			worldY = Interpolation.linear.apply(initY, finY, animationTimer/anim_time);
+			
+			if (animationTimer > anim_time) {
+				float remainingTime = animationTimer - anim_time;
+				walkTimer -= remainingTime;
 				finishMove();
-			}
+				
+				if(moveRequestThisFrame) {
+					move(facing);
+				} 
+				else {
+					walkTimer = 0f;
+				}
+			}	
 		}
+		moveRequestThisFrame = false;
 	}
 	
-	public boolean move (int dx, int dy) {
+	public boolean move (DIRECTION dir) {
 		//Cannot start a new move if the old one is still in process
-		if (playerState != PLAYER_STATE.STANDING) {
+		if (playerState == PLAYER_STATE.WALKING) {
+			if (facing == dir) {
+				moveRequestThisFrame = true;
+			}
 			return false;
 		}
 		
-		if (x+dx >= map.getWidth() || x+dx < 0 || y+dy >= map.getHeight() || y+dy < 0) {
+		if (x + dir.getDX() >= map.getWidth() || x + dir.getDX() < 0 || y + dir.getDY() >= map.getHeight() || y + dir.getDY() < 0) {
 			return false;
 		}
 		
 		//Checks to see if the next tile is occupied by another player
-		if (map.getTile(x + dx, y + dy).getPlayer() != null) {
+		if (map.getTile(x + dir.getDX(), y + dir.getDY()).getPlayer() != null) {
 			return false;
 		}
-		initMove(x, y, dx, dy);
+		initMove(dir);
 		
 		
 		map.getTile(x, y).setPlayer(null);
-		x += dx;
-		y += dy;
+		x += dir.getDX();
+		y += dir.getDY();
 		map.getTile(x, y).setPlayer(this);
 		return true;
 		
@@ -91,15 +127,17 @@ public class Player {
 		return worldY;
 	}
 
-	public void initMove(int oldX, int oldY, int dx, int dy) {
-		this.initX = oldX;
-		this.initY = oldY;
+	public void initMove(DIRECTION dir) {
+		this.facing = dir;
 		
-		this.finX = oldX + dx;
-		this.finY = oldY + dy;
+		this.initX = x;
+		this.initY = y;
 		
-		this.worldX = oldX;
-		this.worldY = oldY;
+		this.finX = x + dir.getDX();
+		this.finY = y + dir.getDY();
+		
+		this.worldX = x;
+		this.worldY = y;
 		
 		animationTimer = 0f;
 		playerState = PLAYER_STATE.WALKING;
@@ -123,5 +161,31 @@ public class Player {
 
 	public int getY () {
 		return y;
+	}
+
+	//optional - for running
+	public void setAnim_time(float anim_time) {
+		this.anim_time = anim_time;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+	
+	public TextureRegion getSprite() {
+		if (playerState == PLAYER_STATE.WALKING) {
+			if (running == false) {
+				return animationsWalking.getWalking(facing).getKeyFrame(walkTimer);
+			}
+			else if (running) {
+				//optional - for running
+				return animationsRunning.getWalking(facing).getKeyFrame(walkTimer);
+			}
+		}
+		else 
+		if (playerState == PLAYER_STATE.STANDING) {
+			return animationsWalking.getStanding(facing);
+		}
+		return animationsWalking.getStanding(DIRECTION.SOUTH);
 	}
 }
