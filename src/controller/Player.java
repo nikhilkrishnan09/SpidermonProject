@@ -108,6 +108,17 @@ public class Player {
 		if (map.getTile(x + dir.getDX(), y + dir.getDY()).getPlayer() != null) {
 			return false;
 		}
+		if (map.getTile(x + dir.getDX(), y + dir.getDY()).HasObject()) {
+			if (!map.getTile(x + dir.getDX(), y + dir.getDY()).getObject().isWalkable()) {
+				return false;
+			}
+		}
+		if (!map.getTile(x + dir.getDX(), y + dir.getDY()).isWalkable()) {
+			return false;
+		}
+		
+		
+		
 		initMove(dir);
 		
 		

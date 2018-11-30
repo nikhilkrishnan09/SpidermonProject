@@ -70,25 +70,25 @@ public class PlayerController extends InputAdapter {
 	public void update (float delta) {
 		//optional - for running
 		if (up && run) {
-			player.setAnim_time(0.2f);
+			player.setAnim_time(0.15f);
 			player.setRunning(true);
 			player.move(DIRECTION.NORTH);
 			return;
 		}
 		if (down && run) {
-			player.setAnim_time(0.2f);
+			player.setAnim_time(0.15f);
 			player.setRunning(true);
 			player.move(DIRECTION.SOUTH);
 			return;
 		}
 		if (left && run) {
-			player.setAnim_time(0.2f);
+			player.setAnim_time(0.15f);
 			player.setRunning(true);
 			player.move(DIRECTION.WEST);
 			return;
 		}
 		if (right && run) {
-			player.setAnim_time(0.2f);
+			player.setAnim_time(0.15f);
 			player.setRunning(true);
 			player.move(DIRECTION.EAST);
 			return;
@@ -99,25 +99,25 @@ public class PlayerController extends InputAdapter {
 		 * 
 		 */
 		if (up) {
-			player.setAnim_time(0.5f);
+			player.setAnim_time(0.4f);
 			player.setRunning(false);
 			player.move(DIRECTION.NORTH);
 			return;
 		}
 		if (down) {
-			player.setAnim_time(0.5f);
+			player.setAnim_time(0.4f);
 			player.setRunning(false);
 			player.move(DIRECTION.SOUTH);
 			return;
 		}
 		if (left) {
-			player.setAnim_time(0.5f);
+			player.setAnim_time(0.4f);
 			player.setRunning(false);
 			player.move(DIRECTION.WEST);
 			return;
 		}
 		if (right) {
-			player.setAnim_time(0.5f);
+			player.setAnim_time(0.4f);
 			player.setRunning(false);
 			player.move(DIRECTION.EAST);
 			return;
