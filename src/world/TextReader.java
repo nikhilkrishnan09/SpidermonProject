@@ -14,6 +14,9 @@ public class TextReader
   
   String st; 
   while ((st = br.readLine()) != null) 
-    System.out.println(st); 
-  } 
+    System.out.println(st);
+  }
+  
+  
+  
 } 

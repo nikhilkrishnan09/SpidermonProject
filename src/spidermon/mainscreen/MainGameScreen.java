@@ -34,7 +34,7 @@ public class MainGameScreen extends AbstractScreen {
 	//Time map to create world and terrain
 	TileMap gameTileMap;
 	
-	public MainGameScreen(Spidermon app) {
+	public MainGameScreen(Spidermon app) throws Exception {
 		super(app);
 		
 		//standSouth = new Texture("sprites/South_Stand.png");

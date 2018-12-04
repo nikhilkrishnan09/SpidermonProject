@@ -19,7 +19,12 @@ public class Spidermon extends Game{
 		assetManager.load("sprites/packed/textures.atlas", TextureAtlas.class);
 		assetManager.finishLoading();
 		
-		screen = new MainGameScreen(this);
+		try {
+			screen = new MainGameScreen(this);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.setScreen(screen);
 	}
