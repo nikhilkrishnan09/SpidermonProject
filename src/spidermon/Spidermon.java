@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import spidermon.mainscreen.MainGameScreen;
 
-public class Spidermon extends Game{
+public class Spidermon extends Game {
 	//Creates the game screen
 	private MainGameScreen screen;
 	AssetManager assetManager;

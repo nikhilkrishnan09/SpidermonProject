@@ -1,5 +1,1 @@
-newTree 4 2
-newTree 10 8
-newTree 11 8
-newTree 9 8
-newTree 7 8
+newTree 10 10

@@ -14,7 +14,6 @@ public class WorldObject {
 	 
 
 	public WorldObject(boolean walkable, Texture texture, int widthTiles, int heightTiles, int width, int height) {
-
 		  this.walkable = walkable;
 		  this.texture = texture;
 		  this.widthTiles = widthTiles;

@@ -1,6 +1,8 @@
 package spidermon.mainscreen;
 
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +26,7 @@ public class MainGameScreen extends AbstractScreen {
 	Texture standSouth;
 	Texture darkGrass;
 	Texture fuzzyGrass;
+	Texture borderTree;
 	
 	//Objects to model and control the player
 	Player player;
@@ -33,6 +36,10 @@ public class MainGameScreen extends AbstractScreen {
 	
 	//Time map to create world and terrain
 	TileMap gameTileMap;
+	int borderWidth;
+	int borderHeight;
+	
+	Random randy = new Random();
 	
 	public MainGameScreen(Spidermon app) throws Exception {
 		super(app);
@@ -40,6 +47,7 @@ public class MainGameScreen extends AbstractScreen {
 		//standSouth = new Texture("sprites/South_Stand.png");
 		darkGrass = new Texture("sprites/grass1.png");
 		fuzzyGrass = new Texture("sprites/grass2.png");
+		borderTree = new Texture("sprites/Dark_Tree.png");
 		
 		spriteBatch = new SpriteBatch();
 		gameTileMap = new TileMap(Settings.WIDTH_TILES, Settings.HEIGHT_TILES);
@@ -71,31 +79,13 @@ public class MainGameScreen extends AbstractScreen {
 		WorldBuilder.setMap(gameTileMap);
 		
 		camera = new Camera();
-		//init();
+		
+		
+		borderWidth = gameTileMap.getWidth() + 9;
+		borderHeight = gameTileMap.getHeight() + 6;
 	}
-
-//	public void init() {
-//		
-//		float worldX = Gdx.graphics.getWidth()/2 - camera.getCameraX() * Settings.SCALE_TILE;
-//		float worldY = Gdx.graphics.getHeight()/2 - camera.getCameraY() * Settings.SCALE_TILE;
-//		
-//		spriteBatch.begin();
-//		
-//		//renders the appropriate type of grass
-//		for (int x = 0; x < gameTileMap.getWidth(); x++) {
-//			for (int y = 0; y < gameTileMap.getHeight(); y++) {
-//				if (gameTileMap.getTile(x, y).getTileType() == 1) {
-//					spriteBatch.draw(darkGrass, worldX + x * Settings.SCALE_TILE, worldY + y * Settings.SCALE_TILE, Settings.SCALE_TILE, Settings.SCALE_TILE);
-//				}
-//				else {
-//					spriteBatch.draw(fuzzyGrass, worldX + x * Settings.SCALE_TILE, worldY + y * Settings.SCALE_TILE, Settings.SCALE_TILE, Settings.SCALE_TILE);
-//				}
-//			}
-//		}
-//		
-//		spriteBatch.end();
-//	}
 	
+
 	@Override
 	public void dispose() {
 		
@@ -120,12 +110,41 @@ public class MainGameScreen extends AbstractScreen {
 		
 		player.update(delta);
 		camera.update(player.getWorldX() + 0.5f, player.getWorldY() + 0.5f);
+		float worldX = Gdx.graphics.getWidth()/2 - camera.getCameraX() * Settings.SCALE_TILE;
+		float worldY = Gdx.graphics.getHeight()/2 - camera.getCameraY() * Settings.SCALE_TILE;
 		
 		spriteBatch.begin();
 		
-		//world coordinates for camera
-		float worldX = Gdx.graphics.getWidth()/2 - camera.getCameraX() * Settings.SCALE_TILE;
-		float worldY = Gdx.graphics.getHeight()/2 - camera.getCameraY() * Settings.SCALE_TILE;
+		//Surrounding trees and tiles
+		for (int i = -9; i < borderWidth; i++) {
+			for (int j = Settings.HEIGHT_TILES; j < borderHeight; j++) {
+					spriteBatch.draw(darkGrass, worldX + i * Settings.SCALE_TILE, worldY + j * Settings.SCALE_TILE, Settings.SCALE_TILE, Settings.SCALE_TILE);
+			}
+			for (int j = -1; j > -7; j--) {				
+					spriteBatch.draw(darkGrass, worldX + i * Settings.SCALE_TILE, worldY + j  * Settings.SCALE_TILE, Settings.SCALE_TILE, Settings.SCALE_TILE);
+			}
+		}
+		
+		for (int i = 0; i < Settings.HEIGHT_TILES; i++) {
+			for (int j = -9; j < 1; j++) {				
+					spriteBatch.draw(darkGrass, worldX + j * Settings.SCALE_TILE, worldY + i  * Settings.SCALE_TILE, Settings.SCALE_TILE, Settings.SCALE_TILE);
+			}			
+			for (int j = Settings.WIDTH_TILES; j < Settings.WIDTH_TILES + 9; j++) {				
+					spriteBatch.draw(darkGrass, worldX + j * Settings.SCALE_TILE, worldY + i  * Settings.SCALE_TILE, Settings.SCALE_TILE, Settings.SCALE_TILE);
+			}			
+		}
+
+		
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+		
 		for (int x = 0; x < gameTileMap.getWidth(); x++) {
 			for (int y = 0; y < gameTileMap.getHeight(); y++) {
 				if (gameTileMap.getTile(x, y).getTileType() == 1) {
@@ -137,7 +156,38 @@ public class MainGameScreen extends AbstractScreen {
 			}
 		}		
 		
-
+		
+		/*
+		 * 
+		 * 
+		 * 
+		 */
+		
+		for (int i = -9; i < borderWidth; i += 2) {
+			for (int j = Settings.HEIGHT_TILES + 6; j >= Settings.HEIGHT_TILES; j -= 2) {
+				spriteBatch.draw(borderTree, worldX + i * Settings.SCALE_TILE, worldY + (j - 1) * Settings.SCALE_TILE, Settings.TREE_WIDTH * Settings.SCALE, Settings.TREE_HEIGHT * Settings.SCALE);
+			}
+		}
+	
+		
+		for (int i = Settings.HEIGHT_TILES - 3; i > -2; i -= 2) {
+			for (int j = -10; j < 0; j+= 2) {				
+					spriteBatch.draw(borderTree, worldX + j * Settings.SCALE_TILE, worldY + i  * Settings.SCALE_TILE, Settings.TREE_WIDTH * Settings.SCALE, Settings.TREE_HEIGHT * Settings.SCALE);
+			}			
+			
+			for (int j = Settings.WIDTH_TILES; j < Settings.WIDTH_TILES + 10; j += 2) {
+				spriteBatch.draw(borderTree, worldX + j * Settings.SCALE_TILE, worldY + i  * Settings.SCALE_TILE, Settings.TREE_WIDTH * Settings.SCALE, Settings.TREE_HEIGHT * Settings.SCALE);
+			}
+				
+		}
+		
+		
+		/*
+		 * 
+		 * 
+		 * 
+		 */
+		
 		if (gameTileMap.getTile(player.getX(), player.getY()).isRenderInFront()) {
 			
 			spriteBatch.draw(player.getSprite(), worldX + player.getWorldX() * Settings.SCALE_TILE, worldY + player.getWorldY() * Settings.SCALE_TILE, 25 * Settings.SCALE, 30 * Settings.SCALE);
@@ -163,9 +213,18 @@ public class MainGameScreen extends AbstractScreen {
 
 		}
 		
+/*
+ * 
+ * 
+ * 
+ */
+		for (int i = -9; i < borderWidth; i += 2) {
 
-		
-		
+			for (int j = -3; j > -9; j -= 2) {
+				spriteBatch.draw(borderTree, worldX + i * Settings.SCALE_TILE, worldY + (j) * Settings.SCALE_TILE, Settings.TREE_WIDTH * Settings.SCALE, Settings.TREE_HEIGHT * Settings.SCALE);
+			}
+		}
+
 		spriteBatch.end();
 	}
 
