@@ -1,0 +1,14 @@
+WorldText.txt is the file for creating object within the game/playable area
+Each new object requires its own line in the text file, with no spaces in between
+
+Syntax for creating a new object is as follows:
+
+ObjectName x y
+
+Where x and y are the coordinates, and each value is separated by a space
+
+ObjectNames:
+newTree - renders a tree
+newGobby - renders a villain (just the image so far)
+newHouse - renders a house
+newBuilding2 - renders a building

@@ -1,0 +1,88 @@
+Installation:
+Download the SpidermonProject.zip file. It should contain all the files 
+for the game to run properly. If the project does not run properly, check 
+the file list below to make sure all the files are there.
+
+The project should be ready to run on its own. 
+
+Run it from the Launcher.java class. This launches the actual game and game 
+screen, where you can play the game.
+
+Critical things to check for: SpidermonProject > sprites > packed > textures.atlas 
+and SpidermonProject > sprites > packed > textures.png. Both of these files are 
+already there and allow the walking animations. However, IF these files are not 
+there, and given only the code and the actual images/sprites, run TexturePackerTool.java 
+to create them. A flowchart of the source code is below.
+
+The project uses libGDX to run. libGDX is a free open-source game-development 
+framework, built to be compatible with java. The project uses 5 gdx jars to run, 
+which are included in the zip file.
+
+To edit the world, create or delete objects from the WorldText.txt text file. 
+Instructions on how to operate this file are in WorldTextInstructions.txt.
+
+Player Controls: Use the arrow keys to move in the four directions. Hold space to run.
+
+List of packages and files with descriptions:
+
+battle
+	FightSimulator.java
+		A turn-based demonstration battle between the player and the opponent, 
+		similar to what will be integrated into the game
+controller
+	Player.java
+		Creates the player object
+	PlayerController.java
+		Handles keyboard input for player movement
+spidermon
+	Launcher.java
+		Launches the game
+	Settings.java
+		Variables for various in game dimensions
+	Spidermon.java
+		Creates the game
+spidermon.mainscreen
+	AbstractScreen.java
+	MainGameScreen.java
+		The actual game screen - handles and renders objects
+spidermon.util
+	AnimationSet.java
+		Creates the animation sequences for walking, running, and standing
+	TexturePackerTool.java
+		Creates the texture png and atlas for the animations
+world
+	Camera.java
+		Creates the camera to follow the player
+	DIRECTION.java
+		Enumeration
+	Tile.java
+		Creates each tile object
+	TileMap.java
+		Creates a 2D array for the tile map
+	WorldBuilder.java
+		Reads WorldText.txt and creates WorldObjects
+	WorldObject.java
+		Objects in the world (trees, building, etc.)
+WorldText.txt
+WorldTextInstructions.txt
+
+
+Known bugs / Troubleshooting:
+
+Running Animation:
+Can glitch if the space bar is repeatedly pressed and released, but it 
+does not affect the game other than making it somewhat visually unpleasant
+
+Colliders:
+Do not work as effectively as it should when some objects, such as trees, 
+are placed directly next to each other. They should be spaced out in order 
+to keep the game glitch free. Fixes are being worked on.
+
+WorldText.txt Object Creation
+There cannot be empty lines in the WorldText.txt as the TextReader 
+is not able to interpret what the empty lines mean
+
+News / Updates:
+Battle UI will be incorporated in the next major update
+Look out for some new villains and some special characters around the map
+Get ready for the upcoming story mode, which allows for lots of free roam while also following a plot

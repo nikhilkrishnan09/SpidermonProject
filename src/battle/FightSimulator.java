@@ -7,8 +7,8 @@ public class FightSimulator
     {
         int move;
         int attack;
-        int NolanHealth = 20;
-        int BeanHealth = 20;
+        int NolanHealth = 10;
+        int BeanHealth = 10;
         int protectCount = 0;
         boolean screwUp = false;
         boolean protect = false;
@@ -20,19 +20,19 @@ public class FightSimulator
 
         while (NolanHealth > 0 && BeanHealth > 0)
         {
-            System.out.print ("Nolan’s Health: ");
+            System.out.print ("N Health: ");
             for (int i = 0; i < NolanHealth; i++)
             {
                 System.out.print ("*");
             }
-            System.out.println ();
+            System.out.println();
             delay();
-            System.out.print ("Beanlock’s Health: ");
+            System.out.print ("B Health: ");
             for (int n = 0; n < BeanHealth; n++)
             {
                 System.out.print ("*");
             }
-            System.out.println ();
+            System.out.println();
             delay();
 
 
@@ -144,7 +144,7 @@ public class FightSimulator
 
             //Beanlock's moves
 
-            if (BeanHealth > 0){
+            if (BeanHealth > 0) {
                 if (BeanHealth == 10) {
                     rand  = Math.random();
                     if (rand > 0 && rand < 0.5){
