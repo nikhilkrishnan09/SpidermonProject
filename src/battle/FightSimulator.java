@@ -7,8 +7,8 @@ public class FightSimulator
     {
         int move;
         int attack;
-        int NolanHealth = 10;
-        int BeanHealth = 10;
+        int SpidermonHealth = 10;
+        int GobbyHealth = 10;
         int protectCount = 0;
         boolean screwUp = false;
         boolean protect = false;
@@ -16,19 +16,19 @@ public class FightSimulator
         Scanner reader = new Scanner (System.in);
 
 
-        System.out.println ("Hello Nolan, you are fighting Beanlock. Get ready for battle.");
+        System.out.println ("Hello Spidermon, you are fighting Gobby. Get ready for battle.");
 
-        while (NolanHealth > 0 && BeanHealth > 0)
+        while (SpidermonHealth > 0 && GobbyHealth > 0)
         {
             System.out.print ("N Health: ");
-            for (int i = 0; i < NolanHealth; i++)
+            for (int i = 0; i < SpidermonHealth; i++)
             {
                 System.out.print ("*");
             }
             System.out.println();
             delay();
             System.out.print ("B Health: ");
-            for (int n = 0; n < BeanHealth; n++)
+            for (int n = 0; n < GobbyHealth; n++)
             {
                 System.out.print ("*");
             }
@@ -52,7 +52,7 @@ public class FightSimulator
                     	delay();
                         System.out.println ("1: Punch");
                         System.out.println ("2: Stab");
-                        System.out.println ("3: Show him your Nolan pellets");
+                        System.out.println ("3: Web him with your Spidermon Webs");
                         System.out.println ("Enter the number of the attack you would like to do: ");
 
                         attack = reader.nextInt();
@@ -64,22 +64,22 @@ public class FightSimulator
                                 case 1:
                                 	delay();
                                     System.out.println ("You used Punch.");
-                                    System.out.println ("Beanlock took 1 damage.");
-                                    BeanHealth -= 1;
+                                    System.out.println ("Gobby took 1 damage.");
+                                    GobbyHealth -= 1;
                                     break;
                                 case 2:
                                 	delay();
                                     System.out.println ("You used Stab.");
-                                    System.out.println ("Beanlock took 2 damage.");
-                                    BeanHealth -= 2;
+                                    System.out.println ("Gobby took 2 damage.");
+                                    GobbyHealth -= 2;
                                     break;
                                 case 3:
                                 	delay();
                                     rand = Math.random();
                                     if (rand > 0 && rand <= .5) {
-                                        System.out.println ("You showed him your Nolan pellets.");
-                                        System.out.println ("Beanlock took 4 damage.");
-                                        BeanHealth -= 4;
+                                        System.out.println ("Web him with your Spidermon Webs.");
+                                        System.out.println ("Gobby took 4 damage.");
+                                        GobbyHealth -= 4;
                                         break;
                                     }
                                     else {
@@ -113,17 +113,17 @@ public class FightSimulator
                         }
                         break;
                     case 3:
-                        if (NolanHealth <= 8) {
+                        if (SpidermonHealth <= 8) {
                         	delay();
                             System.out.println ("You regained 2 health.");
-                            NolanHealth += 2;
+                            SpidermonHealth += 2;
                         }
-                        else if (NolanHealth == 9) {
+                        else if (SpidermonHealth == 9) {
                         	delay();
                             System.out.println ("You regained 1 health.");
-                            NolanHealth ++;
+                            SpidermonHealth ++;
                         }
-                        else if (NolanHealth == 10) {
+                        else if (SpidermonHealth == 10) {
                         	delay();
                             System.out.println ("The move failed.");
                         }
@@ -142,10 +142,10 @@ public class FightSimulator
                 break;
             }
 
-            //Beanlock's moves
+            //Gobby's moves
 
-            if (BeanHealth > 0) {
-                if (BeanHealth == 10) {
+            if (GobbyHealth > 0) {
+                if (GobbyHealth == 10) {
                     rand  = Math.random();
                     if (rand > 0 && rand < 0.5){
                         move = 1;
@@ -158,30 +158,30 @@ public class FightSimulator
                         case 1:
                             if (protect) {
                             	delay();
-                                System.out.println ("Beanlock used tickle.");
+                                System.out.println ("Gobby used tickle.");
                                 System.out.println ("You took no damage.");
                                 protect = false;
                                 break;
                             }
                             else {
                             	delay();
-                                NolanHealth--;
-                                System.out.println ("Beanlock used tickle.");
+                                SpidermonHealth--;
+                                System.out.println ("Gobby used tickle.");
                                 System.out.println ("You took 1 damage.");
                                 break;
                             }
                         case 2:
                             if (protect) {
                             	delay();
-                                System.out.println ("Beanlock used torture.");
+                                System.out.println ("Gobby used torture.");
                                 System.out.println ("You took no damage.");
                                 protect = false;
                                 break;
                             }
                             else {
                             	delay();
-                                NolanHealth -= 3;
-                                System.out.println ("Beanlock used torture.");
+                                SpidermonHealth -= 3;
+                                System.out.println ("Gobby used torture.");
                                 System.out.println ("You took 3 damage.");
                                 break;
                             }
@@ -203,53 +203,53 @@ public class FightSimulator
                         case 1:
                             if (protect) {
                             	delay();
-                                System.out.println ("Beanlock used tickle.");
-                                System.out.println ("Nolan took no damage.");
+                                System.out.println ("Gobby used tickle.");
+                                System.out.println ("Spidermon took no damage.");
                                 protect = false;
                                 break;
                             }
                             else {
                             	delay();
-                                NolanHealth--;
-                                System.out.println ("Beanlock used tickle.");
+                                SpidermonHealth--;
+                                System.out.println ("Gobby used tickle.");
                                 System.out.println ("You took 1 damage.");
                                 break;
                             }
                         case 2:
                             if (protect) {
                             	delay();
-                                System.out.println ("Beanlock used torture.");
-                                System.out.println ("Nolan took no damage.");
+                                System.out.println ("Gobby used torture.");
+                                System.out.println ("Spidermon took no damage.");
                                 protect = false;
                                 break;
                             }
                             else {
                             	delay();
-                                NolanHealth -= 3;
-                                System.out.println ("Beanlock used torture.");
+                                SpidermonHealth -= 3;
+                                System.out.println ("Gobby used torture.");
                                 System.out.println ("You took 3 damage.");
                                 break;
                             }
                         case 3:
-                            if (BeanHealth <= 7) {
+                            if (GobbyHealth <= 7) {
                             	delay();
-                                BeanHealth += 3;
-                                System.out.println ("Beanlock used heal.");
-                                System.out.println ("Beanlock regained 3 HP.");
+                                GobbyHealth += 3;
+                                System.out.println ("Gobby used heal.");
+                                System.out.println ("Gobby regained 3 HP.");
                                 break;
                             }
-                            else if (BeanHealth == 8 ) {
+                            else if (GobbyHealth == 8 ) {
                             	delay();
-                                BeanHealth += 2;
-                                System.out.println ("Beanlock used heal.");
-                                System.out.println ("Beanlock regained 2 HP.");
+                                GobbyHealth += 2;
+                                System.out.println ("Gobby used heal.");
+                                System.out.println ("Gobby regained 2 HP.");
                                 break;
                             }
-                            else if (BeanHealth == 9) {
+                            else if (GobbyHealth == 9) {
                             	delay();
-                                BeanHealth += 1;
-                                System.out.println ("Beanlock used heal.");
-                                System.out.println ("Beanlock regained 1 HP.");
+                                GobbyHealth += 1;
+                                System.out.println ("Gobby used heal.");
+                                System.out.println ("Gobby regained 1 HP.");
                                 break;
                             }
                     }
@@ -257,12 +257,12 @@ public class FightSimulator
             }
         }
 
-        if (NolanHealth > 0 && !screwUp)
+        if (SpidermonHealth > 0 && !screwUp)
         {
         	delay();
-            System.out.println ("Congratulations Nolan, you are the winner!");
+            System.out.println ("Congratulations Spidermon, you are the winner!");
         }
-        else if (BeanHealth > 0 && !screwUp)
+        else if (GobbyHealth > 0 && !screwUp)
         {
         	delay();
             System.out.println ("Better luck next time.");

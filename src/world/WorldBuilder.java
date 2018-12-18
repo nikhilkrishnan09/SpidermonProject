@@ -81,7 +81,7 @@ static Texture building = new Texture ("sprites/building_2.png");
 
 
 		if (type.equals("newGobby")) {
-			builderMap.getTile(x, y).setObject(false, gobby, 2, 3, 25, 30);
+			builderMap.getTile(x, y).setObject(false, gobby, 2,3, 25, 30);
 			builderMap.getTile(x, y+1).setRenderInFront(true);
 			builderMap.getTile(x-1, y+1).setRenderInFront(true);
 			builderMap.getTile(x+1, y+1).setRenderInFront(true);
