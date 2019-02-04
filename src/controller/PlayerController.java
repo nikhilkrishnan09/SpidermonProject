@@ -27,27 +27,50 @@ public class PlayerController extends InputAdapter {
 	public boolean keyDown(int keycode) {
 		//Checks for keyboard input, changes the coordinates of the player accordingly
 		
-		if (keycode == Keys.UP) {
-			up  = true;
+		if (keycode == Keys.ENTER) {
+			player.setIntroText(false);
 		}
-		else if (keycode == Keys.DOWN) {
-			down  = true;
+		
+		if (player.isInBattle()) {
+			if (keycode == Keys.NUM_1 && player.isBattleMoveInput()) {
+				player.setBattleMove(1);
+				player.setBattleMoveInput(false);
+			}
+			if (keycode == Keys.NUM_2 && player.isBattleMoveInput()) {
+				player.setBattleMove(2);
+				player.setBattleMoveInput(false);
+			}
+			if (keycode == Keys.NUM_3 && player.isBattleMoveInput()) {
+				player.setBattleMove(3);
+				player.setBattleMoveInput(false);
+			}
 		}
-		else if (keycode == Keys.LEFT) {
-			left  = true;
+		
+		if (!player.isIntroText() && !player.inRegularBattleCutScene &&!player.isInBattle()) {
+			if (keycode == Keys.UP) {
+				up  = true;
+			}
+			else if (keycode == Keys.DOWN) {
+				down  = true;
+			}
+			else if (keycode == Keys.LEFT) {
+				left  = true;
+			}
+			else if (keycode == Keys.RIGHT) {
+				right  = true;
+			}
+			else if (keycode == Keys.SPACE) {
+				run = true;
+			}	
 		}
-		else if (keycode == Keys.RIGHT) {
-			right  = true;
-		}
-		else if (keycode == Keys.SPACE) {
-			run = true;
-		}	
+			
 		return false;
 	}
 
 
 	@Override
 	public boolean keyUp(int keycode) {
+		
 		if (keycode == Keys.UP) {
 			up  = false;
 		}

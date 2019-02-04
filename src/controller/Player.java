@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 
+import spidermon.mainscreen.MainGameScreen;
 import spidermon.util.AnimationSet;
 import world.DIRECTION;
 import world.TileMap;
@@ -29,7 +30,7 @@ public class Player {
 
 	float animationTimer;
 	float anim_time = 0.5f;
-	
+
 	//optional - for running
 	boolean running = false;
 	
@@ -40,8 +41,14 @@ public class Player {
 	
 	private AnimationSet animationsWalking;
 	private AnimationSet animationsRunning;
-
 	
+	boolean introText;
+	boolean inRegularBattleCutScene;
+	boolean inBattle;
+	
+	boolean battleMoveInput;
+	int battleMove;
+
 	public Player (TileMap tileMap, int x, int y, AnimationSet animationsWalking, AnimationSet animationsRunning) {
 		this.map = tileMap;
 		this.x = x;
@@ -58,8 +65,14 @@ public class Player {
 		this.playerState = PLAYER_STATE.STANDING;
 		
 		this.facing = DIRECTION.SOUTH;
+		
+		this.introText = true;
+		this.inRegularBattleCutScene = false;
+		this.inBattle = false;
+		this.battleMoveInput = false;
+		this.battleMove = 0;
 	}
-	
+
 	public enum PLAYER_STATE {
 		WALKING,
 		STANDING;
@@ -117,15 +130,19 @@ public class Player {
 			return false;
 		}
 		
-		
-		
-		initMove(dir);
-		
+		initMove(dir);		
 		
 		map.getTile(x, y).setPlayer(null);
 		x += dir.getDX();
 		y += dir.getDY();
 		map.getTile(x, y).setPlayer(this);
+		
+		if (map.getTile(x, y).isFightTile() && facing == DIRECTION.NORTH) {
+			this.setInRegularBattleCutScene(true);
+			MainGameScreen.animatingText = true;
+			MainGameScreen.animTime = 0;
+		}
+		
 		return true;
 		
 	}
@@ -137,6 +154,8 @@ public class Player {
 	public float getWorldY() {
 		return worldY;
 	}
+	
+	
 
 	public void initMove(DIRECTION dir) {
 		this.facing = dir;
@@ -183,6 +202,46 @@ public class Player {
 		this.running = running;
 	}
 	
+	public boolean isIntroText() {
+		return introText;
+	}
+
+	public void setIntroText(boolean introText) {
+		this.introText = introText;
+	}
+	
+	public boolean isInRegularBattleCutScene() {
+		return inRegularBattleCutScene;
+	}
+
+	public void setInRegularBattleCutScene(boolean inRegularBattleCutScene) {
+		this.inRegularBattleCutScene = inRegularBattleCutScene;
+	}
+	
+	public boolean isInBattle() {
+		return inBattle;
+	}
+
+	public void setInBattle(boolean inBattle) {
+		this.inBattle = inBattle;
+	}
+	
+	public boolean isBattleMoveInput() {
+		return battleMoveInput;
+	}
+
+	public void setBattleMoveInput(boolean battleMoveInput) {
+		this.battleMoveInput = battleMoveInput;
+	}
+	
+	public int getBattleMove() {
+		return battleMove;
+	}
+
+	public void setBattleMove(int battleMove) {
+		this.battleMove = battleMove;
+	}
+
 	public TextureRegion getSprite() {
 		if (playerState == PLAYER_STATE.WALKING) {
 			if (running == false) {

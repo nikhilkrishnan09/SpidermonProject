@@ -15,7 +15,8 @@ private static TileMap builderMap;
 static Texture tree = new Texture ("sprites/Dark_Tree.png");
 static Texture house = new Texture ("sprites/house_building.png");
 static Texture gobby = new Texture ("sprites/gobby.png");
-static Texture building = new Texture ("sprites/building_2.png");
+static Texture building = new Texture ("sprites/classic_building.png");
+static Texture tallGrass = new Texture("sprites/tall_grass.png");
 
 
 	public static void setMap (TileMap tileMap)throws Exception {
@@ -51,32 +52,59 @@ static Texture building = new Texture ("sprites/building_2.png");
 		}
 	
 		if (type.equals("newHouse")) {
-			builderMap.getTile(x, y).setObject(true, house, 3, 3, 75, 92);
+			builderMap.getTile(x, y).setObject(true, house, 4, 4, 100, 110);			
+			builderMap.getTile(x, y).setWalkable(false);
+			builderMap.getTile(x+1, y).setWalkable(false);
+			builderMap.getTile(x+2, y).setWalkable(false);
+			builderMap.getTile(x+3, y).setWalkable(false);
 			builderMap.getTile(x, y+1).setWalkable(false);
 			builderMap.getTile(x, y+2).setWalkable(false);
-			builderMap.getTile(x+1, y+1).setWalkable(false);
-			builderMap.getTile(x+1, y+2).setWalkable(false);
-			builderMap.getTile(x+2, y+1).setWalkable(false);
-			builderMap.getTile(x+2, y+2).setWalkable(false);
-			builderMap.getTile(x, y+3).setRenderInFront(true);
-			builderMap.getTile(x+1, y+3).setRenderInFront(true);
-			builderMap.getTile(x-1, y+3).setRenderInFront(true);
-			builderMap.getTile(x+2, y+3).setRenderInFront(true);
+			builderMap.getTile(x, y+3).setWalkable(false);	
+			builderMap.getTile(x+3, y+1).setWalkable(false);
+			builderMap.getTile(x+3, y+2).setWalkable(false);
+			builderMap.getTile(x+3, y+3).setWalkable(false);
+			builderMap.getTile(x+1, y+3).setWalkable(false);
+			builderMap.getTile(x+2, y+3).setWalkable(false);
+			builderMap.getTile(x, y+4).setRenderInFront(true);
+			builderMap.getTile(x+1, y+4).setRenderInFront(true);
+			builderMap.getTile(x+2, y+4).setRenderInFront(true);
+			builderMap.getTile(x+3, y+4).setRenderInFront(true);
+			builderMap.getTile(x-1, y+4).setRenderInFront(true);
+			builderMap.getTile(x+4, y+4).setRenderInFront(true);
+			builderMap.getTile(x, y+5).setRenderInFront(true);
+			builderMap.getTile(x+1, y+5).setRenderInFront(true);
+			builderMap.getTile(x+2, y+5).setRenderInFront(true);
+			builderMap.getTile(x+3, y+5).setRenderInFront(true);
+			builderMap.getTile(x-1, y+5).setRenderInFront(true);
+			builderMap.getTile(x+4, y+5).setRenderInFront(true);
 		}
 		
-		if (type.equals("newBuilding2")) {
-			builderMap.getTile(x, y).setObject(true, building, 3, 3, 75, 92);
+		if (type.equals("newBuilding")) {
+			builderMap.getTile(x, y).setObject(true, building, 4, 4, 100, 110);
+			builderMap.getTile(x, y).setWalkable(false);
+			builderMap.getTile(x+1, y).setWalkable(false);
+			builderMap.getTile(x+2, y).setWalkable(false);
+			builderMap.getTile(x+3, y).setWalkable(false);
 			builderMap.getTile(x, y+1).setWalkable(false);
 			builderMap.getTile(x, y+2).setWalkable(false);
-			builderMap.getTile(x+1, y+1).setWalkable(false);
-			builderMap.getTile(x+1, y+2).setWalkable(false);
-			builderMap.getTile(x+2, y+1).setWalkable(false);
-			builderMap.getTile(x+2, y+2).setWalkable(false);
-			builderMap.getTile(x, y+3).setRenderInFront(true);
-			builderMap.getTile(x+1, y+3).setRenderInFront(true);
-			builderMap.getTile(x-1, y+3).setRenderInFront(true);
-			builderMap.getTile(x+2, y+3).setRenderInFront(true);
-			builderMap.getTile(x+3, y+3).setRenderInFront(true);
+			builderMap.getTile(x, y+3).setWalkable(false);	
+			builderMap.getTile(x+3, y+1).setWalkable(false);
+			builderMap.getTile(x+3, y+2).setWalkable(false);
+			builderMap.getTile(x+3, y+3).setWalkable(false);
+			builderMap.getTile(x+1, y+3).setWalkable(false);
+			builderMap.getTile(x+2, y+3).setWalkable(false);
+			builderMap.getTile(x, y+4).setRenderInFront(true);
+			builderMap.getTile(x+1, y+4).setRenderInFront(true);
+			builderMap.getTile(x+2, y+4).setRenderInFront(true);
+			builderMap.getTile(x+3, y+4).setRenderInFront(true);
+			builderMap.getTile(x-1, y+4).setRenderInFront(true);
+			builderMap.getTile(x+4, y+4).setRenderInFront(true);
+			builderMap.getTile(x, y+5).setRenderInFront(true);
+			builderMap.getTile(x+1, y+5).setRenderInFront(true);
+			builderMap.getTile(x+2, y+5).setRenderInFront(true);
+			builderMap.getTile(x+3, y+5).setRenderInFront(true);
+			builderMap.getTile(x-1, y+5).setRenderInFront(true);
+			builderMap.getTile(x+4, y+5).setRenderInFront(true);
 		}
 
 
@@ -85,6 +113,15 @@ static Texture building = new Texture ("sprites/building_2.png");
 			builderMap.getTile(x, y+1).setRenderInFront(true);
 			builderMap.getTile(x-1, y+1).setRenderInFront(true);
 			builderMap.getTile(x+1, y+1).setRenderInFront(true);
+			
+			builderMap.getTile(x, y - 1).setFightTile(true);
+			builderMap.getTile(x, y).setEnemyType("Gobby");
 		}
+		
+//		if (type.equals("newTallGrass")) {
+//			builderMap.getTile(x, y).setObject(true, tallGrass, 1, 1, 25, 25);
+//			
+//		}
+				
 	}
 }
