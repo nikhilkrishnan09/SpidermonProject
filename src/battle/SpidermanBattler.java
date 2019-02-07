@@ -86,7 +86,7 @@ public class SpidermanBattler {
 		}
 		if (isAttacking) {
 			if (move == 1) {		
-				if (Math.random() <= .80) {
+				if (Math.random() <= .10) {
 					setBattleText("The move backfired. \nYou lost HP.");
 					setAttackWorked(false);
 					takeDamage(75);

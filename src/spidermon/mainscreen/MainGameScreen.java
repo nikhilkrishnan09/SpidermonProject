@@ -301,16 +301,19 @@ public class MainGameScreen extends AbstractScreen {
 					
 					if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Gobby")) {
 						
-						enemy = new Enemy (100, 20, "Make Bunda", "Slash", 40, 15);
+						enemy = new Enemy (100, 20, "Make Bunda", "Punch", 40, 15);
 					}
 					spidermanBattler = new SpidermanBattler();
 //					spidermanBattler.resetHealth();
 					battleTurn1 = true;
+					battleTurn2 = false;
+					battleTurn3 = false;
 					enemyTurn = false;
 					player.setInBattle(true);
 					animatingText = true;
 					animTime = 0;
 					waitTime = 0;
+					text = "Spidermon, select your move.";
 				}
 			}
 		}
