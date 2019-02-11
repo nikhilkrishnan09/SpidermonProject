@@ -2,3 +2,5 @@ newGobby 9 10
 newTree 20 20
 newHouse 2 2
 newGobby 9 15
+newGobby 25 25
+newGobby 2 20

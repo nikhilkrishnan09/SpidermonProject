@@ -599,7 +599,7 @@ public class MainGameScreen extends AbstractScreen {
 //								enemy.setMove(2, spidermanBattler.isProtect());
 //							}
 //						}
-						if (random >= 0.5d) {
+						if (random >= 0.9d) {
 							enemy.setMove(1, spidermanBattler.isProtect());
 						}
 						else {
