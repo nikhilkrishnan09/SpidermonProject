@@ -11,4 +11,4 @@ ObjectNames:
 newTree - renders a tree
 newGobby - renders a villain (just the image so far)
 newHouse - renders a house
-newBuilding2 - renders a building
+newBuilding - renders a building
