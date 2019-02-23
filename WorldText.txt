@@ -1,6 +1,6 @@
 newGobby 5 5
-newGobby 10 10
 newTree 15 10
-newHouse 20 20
 newBuilding 5 10
 newBuilding 2 20
+newVenom 10 10
+newMysterio 20 20

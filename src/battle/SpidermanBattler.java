@@ -98,7 +98,7 @@ public class SpidermanBattler {
 			}
 			if (move == 2) {
 
-					setBattleText("You showed him your Spidermon pellets.");
+					setBattleText("You used Web Thwip.");
 					
 					if (isAttackBoost()) {
 						setDamage(40);
@@ -111,7 +111,7 @@ public class SpidermanBattler {
 
 			}
 			if (move == 3) {
-				setBattleText("Showing him your Spidermon pellets \nwill deal double damage next turn!");
+				setBattleText("Using Web Thwip \nwill deal double damage next turn!");
 				setAttackBoost(true);
 				setDamage(0);
 			}

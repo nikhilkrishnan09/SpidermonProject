@@ -33,6 +33,8 @@ public class MainGameScreen extends AbstractScreen {
 	Texture textBox;
 	Texture spidermanBattle;
 	Texture goblinBattle;
+	Texture venomBattle;
+	Texture mysterioBattle;
 	Texture healthBarFrame;
 	Texture healthBar;
 	
@@ -78,6 +80,8 @@ public class MainGameScreen extends AbstractScreen {
 		textBox = new Texture("sprites/Text_box.png");
 		spidermanBattle = new Texture ("sprites/spiderman_battle_sprite.png");
 		goblinBattle = new Texture ("sprites/green_goblin_battle_sprite.png");
+		venomBattle = new Texture ("sprites/venom_battle_sprite.png");
+		mysterioBattle = new Texture ("sprites/mysterio_battle_sprite.png");
 		healthBarFrame = new Texture ("sprites/health_bar_frame.png");
 		healthBar = new Texture ("sprites/health_bar.png");
 		
@@ -301,7 +305,15 @@ public class MainGameScreen extends AbstractScreen {
 					
 					if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Gobby")) {
 						
-						enemy = new Enemy (100, 20, "Make Bunda", "Punch", 40, 15);
+						enemy = new Enemy (100, 20, "Pumpkin Bomb", "Punch", 40, 15);
+					}
+					if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Venom")) {
+						
+						enemy = new Enemy (100, 20, "Venom Slash", "Bite", 40, 15);
+					}
+					if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Mysterio")) {
+						
+						enemy = new Enemy (100, 20, "Phobia", "Smoke Bomb", 40, 15);
 					}
 					spidermanBattler = new SpidermanBattler();
 //					spidermanBattler.resetHealth();
@@ -325,6 +337,12 @@ public class MainGameScreen extends AbstractScreen {
 			spriteBatch.draw(spidermanBattle, 150, 300, 84, 180);
 			if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Gobby")) {
 				spriteBatch.draw(goblinBattle, 600, 300, 162, 168);
+			}
+			if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Venom")) {
+				spriteBatch.draw(venomBattle, 600, 300, 162, 168);
+			}
+			if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Mysterio")) {
+				spriteBatch.draw(mysterioBattle, 600, 250, 162, 220);
 			}
 			spriteBatch.draw(textBox, 275, 5, 350, 90);
 			spriteBatch.draw(healthBarFrame, 90, 500, 250, 50);
@@ -412,7 +430,7 @@ public class MainGameScreen extends AbstractScreen {
 							spriteBatch.draw(healthBar, 95, 507, (int) healthWidth, 36);
 							
 							battleOptions.draw(spriteBatch, "1: Eviscerate", 175, 250);
-							battleOptions.draw(spriteBatch, "2: Show Him Your Spiderman Pellets", 175, 200);
+							battleOptions.draw(spriteBatch, "2: Web Thwip", 175, 200);
 							battleOptions.draw(spriteBatch, "3: Attack Boost", 175, 150);
 							
 							if (!player.isBattleMoveInput()) {
@@ -724,6 +742,8 @@ public class MainGameScreen extends AbstractScreen {
 					animTime += delta;
 					charactersToDisplay = (int)((animTime/totalAnimationTime) * text.length());
 					actuallyDisplayedText = "";
+					double healthWidth = (spidermanBattler.getOldHealth()/spidermanBattler.getMaxHealth())*240;				
+					spriteBatch.draw(healthBar, 95, 507, (int) healthWidth, 36);
 					
 					for (int i = 0; i < charactersToDisplay; i++) {
 						actuallyDisplayedText += text.charAt(i);
@@ -737,28 +757,7 @@ public class MainGameScreen extends AbstractScreen {
 					}
 					
 				}
-				
-				
-				//text = "You have defeated the enemy!\nSearch for more enemies";
-
-				
-				
-//				if (animatingText) {
-//					animTime += delta;
-//					charactersToDisplay = (int)((animTime/totalAnimationTime) * text.length());
-//					
-//					actuallyDisplayedText = "";
-//					for (int i = 0; i < charactersToDisplay; i++) {
-//						actuallyDisplayedText += text.charAt(i);
-//					}
-//					font.draw(spriteBatch, actuallyDisplayedText, 300, 75);
-//					if (actuallyDisplayedText.equals(text)) {
-//						animatingText = false;
-//						player.setInBattle(false);
-//						gameTileMap.getTile(player.getX(), player.getY()).setFightTile(false);
-//						gameTileMap.getTile(player.getX(), player.getY()+1).setHasObject(false);
-//					}
-//				}	
+					
 			}
 			if ((int)spidermanBattler.getOldHealth() == 0) {
 				player.setInBattle(false);
