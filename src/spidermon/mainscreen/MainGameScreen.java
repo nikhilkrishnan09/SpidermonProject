@@ -712,12 +712,53 @@ public class MainGameScreen extends AbstractScreen {
 					}					
 				}
 			}
-			if ((int)enemy.getOldHealth() == 0) {
-				player.setInBattle(false);
-				gameTileMap.getTile(player.getX(), player.getY()).setFightTile(false);
-				gameTileMap.getTile(player.getX(), player.getY()+1).setHasObject(false);
+			if ((int)enemy.getOldHealth() <= 0) {
+				battleTurn3 = false;
+				spriteBatch.draw(textBox, 275, 5, 350, 90);
+				text = "You won the battle! Keep exploring and \nsearching for enemies throughout \nthe world..................";
+				totalAnimationTime = Settings.TEXT_SPEED * text.length();
+				animatingText = true;
+				
+				//Creates scrolling text effect, using frame rate (delta) as a delay between characters
+				if (animatingText) {
+					animTime += delta;
+					charactersToDisplay = (int)((animTime/totalAnimationTime) * text.length());
+					actuallyDisplayedText = "";
+					
+					for (int i = 0; i < charactersToDisplay; i++) {
+						actuallyDisplayedText += text.charAt(i);
+					}
+					font.draw(spriteBatch, actuallyDisplayedText, 300, 75);
+					if (actuallyDisplayedText.equals(text)) {
+						animatingText = false;
+						player.setInBattle(false);
+						gameTileMap.getTile(player.getX(), player.getY()).setFightTile(false);
+						gameTileMap.getTile(player.getX(), player.getY()+1).setHasObject(false);
+					}
+					
+				}
 				
 				
+				//text = "You have defeated the enemy!\nSearch for more enemies";
+
+				
+				
+//				if (animatingText) {
+//					animTime += delta;
+//					charactersToDisplay = (int)((animTime/totalAnimationTime) * text.length());
+//					
+//					actuallyDisplayedText = "";
+//					for (int i = 0; i < charactersToDisplay; i++) {
+//						actuallyDisplayedText += text.charAt(i);
+//					}
+//					font.draw(spriteBatch, actuallyDisplayedText, 300, 75);
+//					if (actuallyDisplayedText.equals(text)) {
+//						animatingText = false;
+//						player.setInBattle(false);
+//						gameTileMap.getTile(player.getX(), player.getY()).setFightTile(false);
+//						gameTileMap.getTile(player.getX(), player.getY()+1).setHasObject(false);
+//					}
+//				}	
 			}
 			if ((int)spidermanBattler.getOldHealth() == 0) {
 				player.setInBattle(false);
