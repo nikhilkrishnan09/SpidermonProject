@@ -35,6 +35,7 @@ public class MainGameScreen extends AbstractScreen {
 	Texture goblinBattle;
 	Texture venomBattle;
 	Texture mysterioBattle;
+	Texture danushBattle;
 	Texture healthBarFrame;
 	Texture healthBar;
 	
@@ -83,6 +84,7 @@ public class MainGameScreen extends AbstractScreen {
 		goblinBattle = new Texture ("sprites/green_goblin_battle_sprite.png");
 		venomBattle = new Texture ("sprites/venom_battle_sprite.png");
 		mysterioBattle = new Texture ("sprites/mysterio_battle_sprite.png");
+		danushBattle = new Texture ("sprites/danush_battle_sprite.png");
 		healthBarFrame = new Texture ("sprites/health_bar_frame.png");
 		healthBar = new Texture ("sprites/health_bar.png");
 		
@@ -336,6 +338,10 @@ public class MainGameScreen extends AbstractScreen {
 						
 						enemy = new Enemy (100, 20, "Phobia", "Smoke Bomb", 25, 15);
 					}
+					if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Danush")) {
+						
+						enemy = new Enemy (100, 20, "Extrapolate", "Look at it over the weekend.", 25, 15);
+					}
 					spidermanBattler = new SpidermanBattler();
 
 					//defaults certain values to control game mechanics and ensure the battle starts properly
@@ -364,6 +370,9 @@ public class MainGameScreen extends AbstractScreen {
 			}
 			if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Mysterio")) {
 				spriteBatch.draw(mysterioBattle, 600, 250, 162, 220);
+			}
+			if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Danush")) {
+				spriteBatch.draw(danushBattle, 600, 300, 162, 168);
 			}
 			
 			//basic rendering

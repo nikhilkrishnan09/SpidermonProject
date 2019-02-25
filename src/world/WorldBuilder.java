@@ -18,6 +18,7 @@ static Texture house = new Texture ("sprites/house_building.png");
 static Texture gobby = new Texture ("sprites/gobby.png");
 static Texture venom = new Texture ("sprites/venom.png");
 static Texture mysterio = new Texture ("sprites/mysterio.png");
+static Texture danush = new Texture ("sprites/Danush.png");
 static Texture building = new Texture ("sprites/classic_building.png");
 static Texture tallGrass = new Texture("sprites/tall_grass.png");
 
@@ -152,6 +153,16 @@ static Texture tallGrass = new Texture("sprites/tall_grass.png");
 			
 			builderMap.getTile(x, y - 1).setFightTile(true);
 			builderMap.getTile(x, y).setEnemyType("Mysterio");
+		}
+		
+		if (type.equals("newDanush")) {
+			builderMap.getTile(x, y).setObject(false, danush, 2, 3, 20, 25);
+			builderMap.getTile(x, y+1).setRenderInFront(true);
+			builderMap.getTile(x-1, y+1).setRenderInFront(true);
+			builderMap.getTile(x+1, y+1).setRenderInFront(true);
+			
+			builderMap.getTile(x, y - 1).setFightTile(true);
+			builderMap.getTile(x, y).setEnemyType("Danush");
 		}
 				
 	}

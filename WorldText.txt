@@ -3,4 +3,4 @@ newTree 15 10
 newBuilding 5 10
 newBuilding 2 20
 newVenom 10 10
-newMysterio 20 20
+newDanush 20 20
