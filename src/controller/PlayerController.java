@@ -10,12 +10,11 @@ public class PlayerController extends InputAdapter {
 	
 	private Player player;
 	
+	//booleans for the direction and motion state
 	boolean up;
 	boolean down;
 	boolean left;
 	boolean right;
-	
-	//optional - for running
 	boolean run;
 	
 	public PlayerController (Player play) {
@@ -27,10 +26,12 @@ public class PlayerController extends InputAdapter {
 	public boolean keyDown(int keycode) {
 		//Checks for keyboard input, changes the coordinates of the player accordingly
 		
+		//skips intro text
 		if (keycode == Keys.ENTER) {
 			player.setIntroText(false);
 		}
 		
+		//select the move when in the battle screen
 		if (player.isInBattle()) {
 			if (keycode == Keys.NUM_1 && player.isBattleMoveInput()) {
 				player.setBattleMove(1);
@@ -46,6 +47,7 @@ public class PlayerController extends InputAdapter {
 			}
 		}
 		
+		//only takes input when not in a battle or cutscene
 		if (!player.isIntroText() && !player.inRegularBattleCutScene &&!player.isInBattle()) {
 			if (keycode == Keys.UP) {
 				up  = true;
@@ -91,7 +93,7 @@ public class PlayerController extends InputAdapter {
 	}
 	
 	public void update (float delta) {
-		//optional - for running
+		//different set of parameters for running (animation time is shorter for faster motion)
 		if (up && run) {
 			player.setAnim_time(0.15f);
 			player.setRunning(true);
@@ -146,7 +148,4 @@ public class PlayerController extends InputAdapter {
 			return;
 		}
 	}
-	
-	
-	
 }

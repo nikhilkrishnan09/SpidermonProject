@@ -12,6 +12,7 @@ import spidermon.Settings;
 public class WorldBuilder {
 
 private static TileMap builderMap;
+//initializes and declares textures from the sprites folder
 static Texture tree = new Texture ("sprites/Dark_Tree.png");
 static Texture house = new Texture ("sprites/house_building.png");
 static Texture gobby = new Texture ("sprites/gobby.png");
@@ -24,10 +25,14 @@ static Texture tallGrass = new Texture("sprites/tall_grass.png");
 	public static void setMap (TileMap tileMap)throws Exception {
 		builderMap = tileMap;
 	
+		//reads a text file to easily construct and modify the map
 		File file = new File("WorldText.txt"); 
 	
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
 	
+		//reads each line of text and parses it into three variables: object name, x coordinate, y coordinate
+		//x and y coordinates are for the bottom left corner of the object
+		//this information is passed to the build method
 		String st; 
 		while ((st = br.readLine()) != null) { 
 			String str[] = st.split(" ", 3);
@@ -39,6 +44,12 @@ static Texture tallGrass = new Texture("sprites/tall_grass.png");
 		}
 	}
 
+	
+	//the build method takes in the object name and coordinates
+	//Coordinates control where the object is rendered
+	//The name control what type of object is rendered (tree, building, enemy, etc.)
+	//based on the coordinates, certain tiles are selected to be walkable or not, creating colliders
+	//other tiles have the setRenderInFront set to true for a 3 dimensional effect
 	public static void build(int x, int y, String type) {
 	
 		if (type.equals("newTree")) {
@@ -110,6 +121,9 @@ static Texture tallGrass = new Texture("sprites/tall_grass.png");
 		}
 
 
+		//The enemies have colliders and 3-D effects
+		//The previous tile and object tile have additional parameters to control player interaction
+		//with enemies in the game (fightTile and EnemyType)
 		if (type.equals("newGobby")) {
 			builderMap.getTile(x, y).setObject(false, gobby, 2, 3, 25, 30);
 			builderMap.getTile(x, y+1).setRenderInFront(true);
@@ -139,11 +153,6 @@ static Texture tallGrass = new Texture("sprites/tall_grass.png");
 			builderMap.getTile(x, y - 1).setFightTile(true);
 			builderMap.getTile(x, y).setEnemyType("Mysterio");
 		}
-		
-//		if (type.equals("newTallGrass")) {
-//			builderMap.getTile(x, y).setObject(true, tallGrass, 1, 1, 25, 25);
-//			
-//		}
 				
 	}
 }

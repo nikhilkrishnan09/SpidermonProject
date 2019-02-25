@@ -2,6 +2,7 @@ package battle;
 
 public class SpidermanBattler {
 	
+	//all fields and parameters for Spiderman 
 	int health;
 	int maxHealth;
 	float oldHealth;
@@ -16,6 +17,7 @@ public class SpidermanBattler {
 	boolean attackWorked;
 	boolean attackBoost;
 
+	//Constructor - same stats every time
 	public SpidermanBattler () {
 		this.maxHealth = 100;
 		this.healAmount = 20;
@@ -69,6 +71,8 @@ public class SpidermanBattler {
 		return move;
 	}
 
+	//controls the damage output and results based on random chance, the move type, and the 
+	//current battler status
 	public void setMove(int move) {
 		this.move = move;
 		if (!isAttacking) {
@@ -86,7 +90,7 @@ public class SpidermanBattler {
 		}
 		if (isAttacking) {
 			if (move == 1) {		
-				if (Math.random() <= .10) {
+				if (Math.random() <= .75) {
 					setBattleText("The move backfired. \nYou lost HP.");
 					setAttackWorked(false);
 					takeDamage(75);
@@ -101,7 +105,7 @@ public class SpidermanBattler {
 					setBattleText("You used Web Thwip.");
 					
 					if (isAttackBoost()) {
-						setDamage(40);
+						setDamage(50);
 						setAttackBoost(false);
 					}
 					else {

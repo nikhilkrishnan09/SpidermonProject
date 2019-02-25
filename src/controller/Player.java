@@ -31,7 +31,7 @@ public class Player {
 	float animationTimer;
 	float anim_time = 0.5f;
 
-	//optional - for running
+	//determines running state
 	boolean running = false;
 	
 	private float walkTimer;
@@ -39,9 +39,11 @@ public class Player {
 	
 	private PLAYER_STATE playerState;
 	
+	//two animation sets
 	private AnimationSet animationsWalking;
 	private AnimationSet animationsRunning;
 	
+	//controls cutscenes
 	boolean introText;
 	boolean inRegularBattleCutScene;
 	boolean inBattle;
@@ -49,6 +51,8 @@ public class Player {
 	boolean battleMoveInput;
 	int battleMove;
 
+	//contructor for the player object
+	//has an instance of the game map for reference and game mechanics
 	public Player (TileMap tileMap, int x, int y, AnimationSet animationsWalking, AnimationSet animationsRunning) {
 		this.map = tileMap;
 		this.x = x;
@@ -73,6 +77,7 @@ public class Player {
 		this.battleMove = 0;
 	}
 
+	//controls which sprites are rendered
 	public enum PLAYER_STATE {
 		WALKING,
 		STANDING;
@@ -85,9 +90,11 @@ public class Player {
 			animationTimer += delta;
 			walkTimer += delta;
 			
+			//linear for smooth motion
 			worldX = Interpolation.linear.apply(initX, finX, animationTimer/anim_time);
 			worldY = Interpolation.linear.apply(initY, finY, animationTimer/anim_time);
 			
+			//walk cycle based on a set timer
 			if (animationTimer > anim_time) {
 				float remainingTime = animationTimer - anim_time;
 				walkTimer -= remainingTime;
@@ -113,6 +120,7 @@ public class Player {
 			return false;
 		}
 		
+		//cannot pass outside the games boundaries
 		if (x + dir.getDX() >= map.getWidth() || x + dir.getDX() < 0 || y + dir.getDY() >= map.getHeight() || y + dir.getDY() < 0) {
 			return false;
 		}
@@ -121,6 +129,8 @@ public class Player {
 		if (map.getTile(x + dir.getDX(), y + dir.getDY()).getPlayer() != null) {
 			return false;
 		}
+		
+		//checks to see if their is a collidable object in the next tile
 		if (map.getTile(x + dir.getDX(), y + dir.getDY()).HasObject()) {
 			if (!map.getTile(x + dir.getDX(), y + dir.getDY()).getObject().isWalkable()) {
 				return false;
@@ -132,11 +142,13 @@ public class Player {
 		
 		initMove(dir);		
 		
+		//removes player from the previous tile and sets it to the new tile
 		map.getTile(x, y).setPlayer(null);
 		x += dir.getDX();
 		y += dir.getDY();
 		map.getTile(x, y).setPlayer(this);
 		
+		//checks to see if the battle sequence is initiated
 		if (map.getTile(x, y).isFightTile() && facing == DIRECTION.NORTH) {
 			this.setInRegularBattleCutScene(true);
 			MainGameScreen.animatingText = true;
@@ -154,9 +166,8 @@ public class Player {
 	public float getWorldY() {
 		return worldY;
 	}
-	
-	
 
+	//controls motions
 	public void initMove(DIRECTION dir) {
 		this.facing = dir;
 		
@@ -193,7 +204,6 @@ public class Player {
 		return y;
 	}
 
-	//optional - for running
 	public void setAnim_time(float anim_time) {
 		this.anim_time = anim_time;
 	}
@@ -242,13 +252,14 @@ public class Player {
 		this.battleMove = battleMove;
 	}
 
+	//determines which textures are returned based on the player state
+	//"running" is just quick walking, so it is under the player state: "Walking"
 	public TextureRegion getSprite() {
 		if (playerState == PLAYER_STATE.WALKING) {
 			if (running == false) {
 				return animationsWalking.getWalking(facing).getKeyFrame(walkTimer);
 			}
 			else if (running) {
-				//optional - for running
 				return animationsRunning.getWalking(facing).getKeyFrame(walkTimer);
 			}
 		}

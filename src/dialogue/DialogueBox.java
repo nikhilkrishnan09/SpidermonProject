@@ -5,6 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
+//THIS CLASS DOES NOTHING
+//Initially developed with online aid as a structure for all text in the text box,
+//abandoned because repeating small segments of code was easier given the frame by frame repetition
+//sequence of the game
+//The same principle is used in MainGameScreen for text
+
 public class DialogueBox extends Table {
 
 	private String targetText = "";

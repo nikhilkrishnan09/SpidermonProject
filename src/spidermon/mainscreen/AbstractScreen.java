@@ -7,6 +7,7 @@ public abstract class AbstractScreen implements Screen {
 	
 	private Spidermon app;
 	
+	//abstract class for MainGameScreen - suggested by online websites
 	public AbstractScreen (Spidermon app) {
 		this.app = app;
 	}

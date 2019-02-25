@@ -1,12 +1,14 @@
 package spidermon;
 
 public class Settings {
-	//Settings - all hardcoded dimensions here
+	//Settings - most hardcoded dimensions here
+
 	public static int TILE = 25;
 
 	public static int SCALE = 2;
 	public static int SCALE_TILE = SCALE * TILE;
 
+	//change the size of the map by changing the 4 digit number
 	public static int HEIGHT_TILES = 2000/SCALE_TILE;
 	public static int WIDTH_TILES = 2000/SCALE_TILE;
 	

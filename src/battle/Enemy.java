@@ -2,6 +2,7 @@ package battle;
 
 public class Enemy {
 	
+	//All fields and parameters for the enemy object
 	int health;
 	int damage;
 	int healAmount;
@@ -15,6 +16,7 @@ public class Enemy {
 	int move;
 	boolean attackWorked;
 	
+	//Constructor for an enemy object, able to be varied for different types of enemies
 	public Enemy(int maxHealth, int healAmount, String move1, String move2, int move1Damage, int move2Damage) {
 		this.maxHealth = maxHealth;
 		this.healAmount = healAmount;
@@ -87,6 +89,8 @@ public class Enemy {
 		}
 	}
 
+	//Controls the damage output and result based on the move type and the protect status
+	//of the player
 	public void setMove(int move, boolean protect) {
 		this.move = move;
 		

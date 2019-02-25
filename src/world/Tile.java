@@ -7,11 +7,17 @@ import controller.Player;
 public class Tile {
 	
 	//Tile object constructor
+	//A tile is a single walkable space on the map
+	//The tile has several properties that impact player interaction 
+	//The tile object works in tandem with the WorldObject to control player interaction
 	Player player;
 	int type;
 	boolean hasObject;
 	boolean walkable = true;
 	WorldObject object;
+	
+	//renderInFront variable allows for 3-Dimensional effect depending on if Spiderman is obscured by 
+	//the object or renders in front and blocks part of the object
 	boolean renderInFront = false;
 	boolean fightTile = false;
 	String enemyType;
@@ -83,6 +89,7 @@ public class Tile {
 		this.enemyType = enemyType;
 	}
 
+	//a tile may have an object, declared here
 	public void setObject (boolean walkable, Texture texture, int widthTiles, int heightTiles, int width, int height) {
 		object = new WorldObject(walkable, texture, widthTiles, heightTiles, width, height);
 		hasObject = true;

@@ -12,9 +12,11 @@ import world.DIRECTION;
 
 public class AnimationSet {
 	
+	//initializes hashMaps
 	private Map<DIRECTION, Animation> walking;
 	private Map<DIRECTION, TextureRegion> standing;
 	
+	//contructor1 for walking and standing textures and animations
 	public AnimationSet(Animation walkNorth, 
 			Animation walkSouth, 
 			Animation walkEast, 
@@ -24,6 +26,7 @@ public class AnimationSet {
 			TextureRegion standEast, 
 			TextureRegion standWest) {
 		
+		//declares hashMaps
 		walking = new HashMap<DIRECTION, Animation>();
 		walking.put(DIRECTION.NORTH, walkNorth);
 		walking.put(DIRECTION.SOUTH, walkSouth);
@@ -37,6 +40,7 @@ public class AnimationSet {
 		standing.put(DIRECTION.WEST, standWest);
 	}
 	
+	//second contructor is only for the running animations
 	public AnimationSet(Animation walkNorth, 
 			Animation walkSouth, 
 			Animation walkEast, 
@@ -54,8 +58,7 @@ public class AnimationSet {
 	
 	public Animation getWalking(DIRECTION dir) {
 		return walking.get(dir);
-		
-		
+
 	}
 	
 	public TextureRegion getStanding(DIRECTION dir) {

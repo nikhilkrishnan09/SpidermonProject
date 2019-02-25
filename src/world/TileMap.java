@@ -7,7 +7,9 @@ public class TileMap {
 	private int width;
 	private int height;
 	
-	//2D array for creating a tile map
+	//2D array of tiles for creating a tile map
+	//Size of this array is controlled in Settings
+	
 	Tile[][] tiles;
 	Random random;
 	
@@ -34,6 +36,9 @@ public class TileMap {
 		}
 	}
 	
+	//Each tile of the map can be accessed individually with x and y coordinates
+	//Based on the players position, this controls spidermons interaction with the world
+	//From the tile class, world objects can be accessed, controlling player interaction as well
 	public Tile getTile (int x, int y) {
 		return tiles[x][y];
 	}

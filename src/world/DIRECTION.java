@@ -1,5 +1,6 @@
 package world;
 
+//enumeration for the different directions the player can face
 public enum DIRECTION {
 	
 	NORTH(0,1),

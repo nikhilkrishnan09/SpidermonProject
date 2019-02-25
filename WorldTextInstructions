@@ -9,6 +9,8 @@ Where x and y are the coordinates, and each value is separated by a space
 
 ObjectNames:
 newTree - renders a tree
-newGobby - renders a villain (just the image so far)
+newGobby - renders a villain
+newVenom - renders a different type of villain
+newMysterio - renders a different type of villain
 newHouse - renders a house
 newBuilding - renders a building

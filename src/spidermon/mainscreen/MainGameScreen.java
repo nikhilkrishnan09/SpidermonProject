@@ -62,6 +62,7 @@ public class MainGameScreen extends AbstractScreen {
 	String text;
 	String actuallyDisplayedText;
 	
+	//fields for the battle sequence
 	Enemy enemy;
 	SpidermanBattler spidermanBattler;
 	boolean battleTurn1 = false;
@@ -88,6 +89,7 @@ public class MainGameScreen extends AbstractScreen {
 		spriteBatch = new SpriteBatch();
 		gameTileMap = new TileMap(Settings.WIDTH_TILES, Settings.HEIGHT_TILES);
 		
+		//initializes and declares the texture atlas to render animation sprites
 		TextureAtlas atlas = app.getAssetManager().get("sprites/packed/textures.atlas", TextureAtlas.class);
 		
 		//Walking and standing animations
@@ -118,6 +120,7 @@ public class MainGameScreen extends AbstractScreen {
 		
 		camera = new Camera();		
 		
+		//controls forest rendered around the entire game map
 		borderWidth = gameTileMap.getWidth() + 9;
 		borderHeight = gameTileMap.getHeight() + 6;
 		
@@ -154,8 +157,10 @@ public class MainGameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
+		//updates PlayerController.java with the same frame rate
 		playerController.update(delta);
 		
+		//updates Player.java and Camera.java
 		player.update(delta);
 		camera.update(player.getWorldX() + 0.5f, player.getWorldY() + 0.5f);
 		float worldX = Gdx.graphics.getWidth()/2 - camera.getCameraX() * Settings.SCALE_TILE;
@@ -164,6 +169,12 @@ public class MainGameScreen extends AbstractScreen {
 		spriteBatch.begin();
 		
 		//Does not render world when player is in battle
+		//The order in which certain object is rendered controls the 3-D effect
+		//Some of the static objects, like the surrounding trees, can be at a fixed line relative
+		//to the code that renders the player
+		
+		//Other objects require dynamic rendering location since the player can move either behind
+		//or in front of it, meaning sometimes the object shows up in front and sometimes the player does
 		if (!player.isInBattle()) {
 			//Surrounding grass
 			for (int i = -9; i < borderWidth; i++) {
@@ -216,7 +227,8 @@ public class MainGameScreen extends AbstractScreen {
 			}
 			
 			//Renders player and objects player interacts with
-			//Controls which objects are rendered first for 3D effect
+			//Controls which objects are rendered first for 3D effect by checking the RenderInFront variable
+			//from the tiles
 			if (gameTileMap.getTile(player.getX(), player.getY()).isRenderInFront()) {
 				
 				spriteBatch.draw(player.getSprite(), worldX + player.getWorldX() * Settings.SCALE_TILE, worldY + player.getWorldY() * Settings.SCALE_TILE, 25 * Settings.SCALE, 30 * Settings.SCALE);
@@ -251,13 +263,17 @@ public class MainGameScreen extends AbstractScreen {
 			}
 		}
 		
-		//Introduction text
+		//Introduction text - plates only once
 		if (player.isIntroText()) {
+			//draws text box
 			spriteBatch.draw(textBox, 275, 5, 350, 90);
 			text = "Welcome to the world of Spidermon!\nYour objective is to find and defeat all enemies.\nPress ENTER to start your journey...";
+			
+			//determines how long the animation is based on how many characters there are
 			totalAnimationTime = Settings.TEXT_SPEED * text.length();
 			
-			//Creates scrolling text effect, using frame rate (delta) as a delay between characters
+			//Creates scrolling text effect, using frame rate (delta) as a delay between characters and to control
+			//how many characters appear on the screen at a time
 			if (animatingText) {
 				animTime += delta;
 				charactersToDisplay = (int)((animTime/totalAnimationTime) * text.length());
@@ -267,6 +283,8 @@ public class MainGameScreen extends AbstractScreen {
 				}
 				font.draw(spriteBatch, actuallyDisplayedText, 300, 75);
 				if (actuallyDisplayedText.equals(text)) {
+					//when the animation sequence is done (the text and displayed text are equal)
+					//it terminates
 					animatingText = false;
 				}
 			}
@@ -300,12 +318,15 @@ public class MainGameScreen extends AbstractScreen {
 				font.draw(spriteBatch, text, 300, 75);
 				
 				waitTime += delta;
+				
+				//small delay to make gameplay more smooth
 				if (waitTime > 2f) {
 					player.setInRegularBattleCutScene(false);
 					
+					//changes enemy parameters based on which enemy the player is fighting
 					if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Gobby")) {
 						
-						enemy = new Enemy (100, 20, "Pumpkin Bomb", "Punch", 40, 15);
+						enemy = new Enemy (100, 20, "Pumpkin Bomb", "Punch", 35, 15);
 					}
 					if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Venom")) {
 						
@@ -313,10 +334,11 @@ public class MainGameScreen extends AbstractScreen {
 					}
 					if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Mysterio")) {
 						
-						enemy = new Enemy (100, 20, "Phobia", "Smoke Bomb", 40, 15);
+						enemy = new Enemy (100, 20, "Phobia", "Smoke Bomb", 25, 15);
 					}
 					spidermanBattler = new SpidermanBattler();
-//					spidermanBattler.resetHealth();
+
+					//defaults certain values to control game mechanics and ensure the battle starts properly
 					battleTurn1 = true;
 					battleTurn2 = false;
 					battleTurn3 = false;
@@ -329,11 +351,10 @@ public class MainGameScreen extends AbstractScreen {
 				}
 			}
 		}
-
-//		Texture healthBarFrame;
-//		Texture healthBar;
 		
 		if (player.isInBattle()) {
+			
+			//renders correct enemy based on which one the player is fighting
 			spriteBatch.draw(spidermanBattle, 150, 300, 84, 180);
 			if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Gobby")) {
 				spriteBatch.draw(goblinBattle, 600, 300, 162, 168);
@@ -344,12 +365,24 @@ public class MainGameScreen extends AbstractScreen {
 			if (gameTileMap.getTile(player.getX(), player.getY()+1).getEnemyType().equals("Mysterio")) {
 				spriteBatch.draw(mysterioBattle, 600, 250, 162, 220);
 			}
+			
+			//basic rendering
 			spriteBatch.draw(textBox, 275, 5, 350, 90);
 			spriteBatch.draw(healthBarFrame, 90, 500, 250, 50);
 			spriteBatch.draw(healthBarFrame, 560, 500, 250, 50);
-						
+			
+			//loops game sequence while both battlers are still alive
+			//Loops are done with if statements, since the entire code runs through many times per second (frame rate)
+			//while loops cause errors, as the code needs to advance 
+			//if statements control which sections of the entire code in render() are actually executed
+			
 			if (enemy.getOldHealth() > 0 && spidermanBattler.getOldHealth() > 0) {
 				
+				//turn based battle system
+				//battleTurn work in tandem with classes in the battle package
+				//these classes handle the parameters of the battlers, control part of the text output, 
+				//and manage what events need to occur
+				//battleTurn1 - intro text and selecting a move
 				if (battleTurn1) {
 					battleOptions.draw(spriteBatch, "1: Attack", 175, 250);
 					battleOptions.draw(spriteBatch, "2: Heal", 175, 200);
@@ -392,6 +425,7 @@ public class MainGameScreen extends AbstractScreen {
 					}
 				}	
 				
+				//battleTurn2 - executing protect or heal or selecting an attack to use
 				if (battleTurn2) {
 					text = spidermanBattler.getBattleText();
 					totalAnimationTime = Settings.TEXT_SPEED * text.length();		
@@ -488,6 +522,8 @@ public class MainGameScreen extends AbstractScreen {
 					}	
 				}
 				
+				
+				//only if an attack is used by the player - executes the attack
 				if (battleTurn3) {
 					text = spidermanBattler.getBattleText();
 					totalAnimationTime = Settings.TEXT_SPEED * text.length();		
@@ -585,39 +621,15 @@ public class MainGameScreen extends AbstractScreen {
 						}
 					}
 					
-					
-					
-					
 				}
-				if (enemyTurn) {
-					
-					
+				
+				//enemies moves - controlled by random chance with rudimentary AI
+				if (enemyTurn) {			
 					
 					if (enemySelectingMove) {
 						double random = Math.random();
-//						
-//						if (enemy.getHealth() == 100) {
-//							if (random >= 0.5d) {
-//								enemy.setMove(1, spidermanBattler.isProtect());
-//							}
-//							else {
-//								enemy.setMove(2, spidermanBattler.isProtect());
-//							}
-//						}
-//						else {
-//							if (random < 0.4d)
-//							{
-//								enemy.setMove(3, spidermanBattler.isProtect());
-//							
-//							}
-//							if (random >= 0.4d && random < 0.7d) {
-//								enemy.setMove(1, spidermanBattler.isProtect());
-//							}
-//							if (random >= 0.7d) {
-//								enemy.setMove(2, spidermanBattler.isProtect());
-//							}
-//						}
-						if (random >= 0.9d) {
+
+						if (random >= 0.5d) {
 							enemy.setMove(1, spidermanBattler.isProtect());
 						}
 						else {
@@ -626,13 +638,10 @@ public class MainGameScreen extends AbstractScreen {
 						
 						enemySelectingMove = false;
 					}
-					
-					
+			
 					
 					String enemyText = enemy.getBattleText();
-					
-
-					
+						
 					totalAnimationTime = Settings.TEXT_SPEED * enemyText.length();		
 				
 					if (animatingText) {
@@ -652,9 +661,6 @@ public class MainGameScreen extends AbstractScreen {
 						}
 						font.draw(spriteBatch, actuallyDisplayedText, 300, 75);
 						
-						
-						
-						
 						if (actuallyDisplayedText.equals(enemyText)) {
 							animatingText = false;
 							
@@ -666,9 +672,6 @@ public class MainGameScreen extends AbstractScreen {
 								spidermanBattler.setHealthChange(true);
 							}
 							
-//							if (enemy.getMove() == 3) {
-//								enemy.Heal();
-//							}
 						}
 					}
 					
@@ -730,6 +733,8 @@ public class MainGameScreen extends AbstractScreen {
 					}					
 				}
 			}
+			
+			//sequences for the enemy death
 			if ((int)enemy.getOldHealth() <= 0) {
 				battleTurn3 = false;
 				spriteBatch.draw(textBox, 275, 5, 350, 90);
@@ -759,6 +764,8 @@ public class MainGameScreen extends AbstractScreen {
 				}
 					
 			}
+			
+			//sequence for the player death - spawns back in the world with the ability to challenge the enemy again
 			if ((int)spidermanBattler.getOldHealth() == 0) {
 				player.setInBattle(false);
 				
@@ -781,6 +788,7 @@ public class MainGameScreen extends AbstractScreen {
 
 	@Override
 	public void show() {
+		//Selects the controller used
 		Gdx.input.setInputProcessor(playerController);
 	}
 }

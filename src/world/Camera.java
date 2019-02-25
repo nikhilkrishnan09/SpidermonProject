@@ -6,7 +6,7 @@ public class Camera {
 	float cameraY = 0f;
 	
 
-	//Creates camera
+	//Creates camera which follows the player around
 	public void update(float updatedX, float updatedY) {
 		this.cameraX = updatedX;
 		this.cameraY = updatedY;
